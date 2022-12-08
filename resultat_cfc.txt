@@ -1,0 +1,34 @@
+MacBook-Air:Partie 2 mathieulesur$ ./algo_CFC amitie.graphe 0
+amitie.graphe lu
+L'exploration depuis le sommet 0 contient les sommets 0 1.
+--
+Dont les noms sont :
+Jean
+Daniel
+2 sommets poeuvent etre atteints depuis 0 et 2 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000013 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./algo_CFC amitie.graphe 1
+amitie.graphe lu
+L'exploration depuis le sommet 1 contient les sommets 0 1.
+--
+Dont les noms sont :
+Jean
+Daniel
+2 sommets poeuvent etre atteints depuis 1 et 2 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000017 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./algo_CFC amitie.graphe 2
+amitie.graphe lu
+L'exploration depuis le sommet 2 contient les sommets 2.
+--
+Dont les noms sont :
+Yukiko
+1 sommets poeuvent etre atteints depuis 2 et 3 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000014 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./algo_CFC amitie.graphe 3
+amitie.graphe lu
+L'exploration depuis le sommet 3 contient les sommets 3.
+--
+Dont les noms sont :
+Michel
+1 sommets poeuvent etre atteints depuis 3 et 3 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000013 secondes
