@@ -1,0 +1,37 @@
+MacBook-Air:Partie 2 mathieulesur$ ./explorationLargeur amitie.graphe 0
+amitie.graphe lu
+0 3 1 L'exploration depuis le sommet 0 contient les sommets 0 1 3.
+--
+Dont les noms sont :
+Jean
+Daniel
+Michel
+3 sommets poeuvent etre atteints depuis 0 et 1 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000033 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./explorationLargeur amitie.graphe 1
+amitie.graphe lu
+1 0 3 L'exploration depuis le sommet 1 contient les sommets 0 1 3.
+--
+Dont les noms sont :
+Jean
+Daniel
+Michel
+3 sommets poeuvent etre atteints depuis 1 et 1 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000049 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./explorationLargeur amitie.graphe 2
+amitie.graphe lu
+2 3 L'exploration depuis le sommet 2 contient les sommets 2 3.
+--
+Dont les noms sont :
+Yukiko
+Michel
+2 sommets poeuvent etre atteints depuis 2 et 2 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000034 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./explorationLargeur amitie.graphe 3
+amitie.graphe lu
+3 L'exploration depuis le sommet 3 contient les sommets 3.
+--
+Dont les noms sont :
+Michel
+1 sommets poeuvent etre atteints depuis 3 et 3 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000028 secondes
