@@ -1,0 +1,26 @@
+MacBook-Air:Partie 2 mathieulesur$ ./explorationNaif amitie.graphe 1
+amitie.graphe lu
+L'exploration depuis le sommet 1 contient les sommets 1 3.
+--
+Dont les noms sont :
+Daniel
+Michel
+2 sommets poeuvent etre atteints depuis 1 et 2 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000003 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./explorationNaif amitie.graphe 2
+amitie.graphe lu
+L'exploration depuis le sommet 2 contient les sommets 2 3.
+--
+Dont les noms sont :
+Yukiko
+Michel
+2 sommets poeuvent etre atteints depuis 2 et 2 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000006 secondes
+MacBook-Air:Partie 2 mathieulesur$ ./explorationNaif amitie.graphe 3
+amitie.graphe lu
+L'exploration depuis le sommet 3 contient les sommets 3.
+--
+Dont les noms sont :
+Michel
+1 sommets poeuvent etre atteints depuis 3 et 3 sommets ne peuvent pas etre atteints 
+Exploration calculee en 0.000003 secondes
