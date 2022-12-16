@@ -4,10 +4,8 @@
 
 #define MAX 6
 #define DIJKSTRA
-#define TEST
 
-#ifndef TEST
-// https://www.programiz.com/dsa/dijkstra-algorithm
+#define INFINI LONG_MAX
 
 /* ====================================================================== */
 /*! \fn void Dijkstra(graphe * g, int i)
@@ -16,11 +14,97 @@
     \param i (entrée) : un sommet de g.
     \brief calcule, pour chaque sommet x de g, la longueur d'un plus court
            chemin de i vers x. Cette longueur est stockée dans le champ
-           c  q sd de g .
+           v_sommets de g.
 */
 /* ====================================================================== */
 void Dijkstra(graphe * g, int i){
 
+
+    int n = g->nsom ;
+    boolean* S = EnsembleVide(n) ;
+    S[i] = TRUE ;
+    g->v_sommets[i] = 0 ;
+    int k = 1 ; 
+    int xk = i ; 
+
+    for(int x = 0 ; x < n ; x++){
+      if(i == x) continue ;
+      g->v_sommets[x] = INFINI ;
+    }
+
+    while(k < n && g->v_sommets[xk] < INFINI){
+      
+      /*
+      boolean* tempo = (boolean*) calloc(g->nsom, sizeof(boolean));
+      tempo[xk] = TRUE;
+      boolean* successeurs = dilatation(g, tempo) ;
+      */
+
+      //printf("----\n") ;
+
+      int min_sommet = -1 ;
+      int min_value = INFINI ;
+
+      pcell cell = g->gamma[xk] ;
+      while(cell != NULL){
+          int y = cell->som ;
+          if(S[y] == FALSE){
+
+            //g->v_sommets[y] = min(g->v_sommets[y], g->v_sommets[xk] + cell->v_arc) ;
+            //printf("> %d, %d, %d\n", g->v_sommets[y], g->v_sommets[xk] + cell->v_arc, -1) ;
+            
+            int new_val = g->v_sommets[xk] + cell->v_arc ;
+            
+
+            if(new_val < g->v_sommets[y]) {
+              //printf("DEBUG : %ld : %d (%d)\n", g->v_sommets[y], cell->som ,new_val) ;
+              g->v_sommets[y] = new_val ; 
+              if(min_value > g->v_sommets[y]) {
+                min_sommet = cell->som ;
+                min_value = g->v_sommets[y] ;
+                //printf("New min sommet = %d\n", min_sommet); 
+              }
+            }
+            /*
+
+            //printf(">> %d, %d\n", g->v_sommets[y], new_val) ;
+            if(g->v_sommets[y] >= new_val){
+              g->v_sommets[y] = new_val ;
+              min_sommet = cell->som ;
+              //printf("new Sommet : %d (%ld)\n", min_sommet,g->v_sommets[y]) ;
+            }
+            */
+            
+          }
+          cell = cell->next ;
+      }
+
+      //printf("Minimum sommet : %d\n", min_sommet) ;
+
+      if(min_sommet == -1) return ;
+
+      k++ ;
+      xk = min_sommet ;
+      S[xk] = TRUE ;
+
+
+      //printf("xk = %d : ", xk) ;
+      /*
+      printf("> %ld\n", g->gamma[i]->v_arc) ;
+
+      for(int y = 0 ; y < n ; y++){
+        if(successeurs[y] == TRUE && S[y] == FALSE){
+          g->v_sommets[y] = min(g->v_sommets[y], g->v_sommets[xk] + g->gamma[xk]->) ;
+        }
+        //printf("%s ", successeurs[t] ? "V" : "F") ;
+      }
+      */
+      //printf("\n") ;
+
+    }
+
+
+/*
     int E = g->nsom ;
     int cost[E][E] ;
     //int* distance = malloc(E * sizeof(int)) ;
@@ -107,56 +191,21 @@ void Dijkstra(graphe * g, int i){
     */
 }
 
-#else
+/* ====================================================================== */
+/*! \fn graphe * PCC(graphe * g, int d, int a)
+    \param g (entrée) : un graphe pondéré. La pondération de chaque arc doit 
+                        se trouver dans le champ v_arc de la structure cell .
+    \param d (entrée) : un sommet (départ).
+    \param a (entrée) : un sommet (arrivée).
+    \return un plus court chemin de d vers a dans g , représenté par un graphe.
+    \brief retourne un plus court chemin de d vers a dans g .
+*/
+/* ====================================================================== */
+graphe* PCC(graphe * g, int d, int a){
 
-void Dijkstra(int Graph[MAX][MAX], int n, int start) {
-  int cost[MAX][MAX], distance[MAX], pred[MAX];
-  int visited[MAX], count, mindistance, nextnode, i, j;
+  
 
-  // Creating cost matrix
-  for (i = 0; i < n; i++)
-    for (j = 0; j < n; j++)
-      if (Graph[i][j] == 0)
-        cost[i][j] = INFINITY;
-      else
-        cost[i][j] = Graph[i][j];
-
-  for (i = 0; i < n; i++) {
-    distance[i] = cost[start][i];
-    pred[i] = start;
-    visited[i] = 0;
-  }
-
-  distance[start] = 0;
-  visited[start] = 1;
-  count = 1;
-
-  while (count < n - 1) {
-    mindistance = INFINITY;
-
-    for (i = 0; i < n; i++)
-      if (distance[i] < mindistance && !visited[i]) {
-        mindistance = distance[i];
-        nextnode = i;
-      }
-
-    visited[nextnode] = 1;
-    for (i = 0; i < n; i++)
-      if (!visited[i])
-        if (mindistance + cost[nextnode][i] < distance[i]) {
-          distance[i] = mindistance + cost[nextnode][i];
-          pred[i] = nextnode;
-        }
-    count++;
-  }
-
-  // Printing the distance
-  for (i = 0; i < n; i++)
-    if (i != start) {
-      printf("\nDistance from source to %d: %d", i, distance[i]);
-    }
 }
-#endif
 
 int main(int argc, char const *argv[])
 {
@@ -169,40 +218,14 @@ int main(int argc, char const *argv[])
     char* c = strdup(argv[1]) ;
     int u = atoi(argv[2]);
 
-    #define SIZE 15
-    int Graph[SIZE][SIZE], i, j, n;
-    n = 6;
-
-    for(int x=0 ; x<SIZE ; x++)
-        for(int y=0 ; y<SIZE ; y++)
-            Graph[x][y] = 0 ; 
-
-    Graph[0][1] = 2 ;
-    Graph[0][2] = 8 ;
-    Graph[1][2] = 5 ;
-    Graph[1][3] = 1 ;
-    Graph[2][4] = 1 ;
-    Graph[3][2] = 4 ;
-    Graph[4][1] = 3 ;
-    Graph[3][4] = 1 ;
-    Graph[3][5] = 1 ;
-    Graph[4][5] = 1 ;
-
-    Dijkstra(Graph, n, u);
-    printf("\n") ;
-    return 0 ; 
-
-    #ifndef TEST
-
-    
-    
-    
     graphe* G = ReadGraphe(c) ;
-    //graphe* G = ReadGraphe(argv[1]); 
     
+    Dijkstra(G, u) ;
 
-    Dijkstra(G, x) ;
-    #endif
+    for(int i = 0 ; i < G->nsom ; i++)
+      printf("\nDistance from %d to %d: %ld", u, i, G->v_sommets[i]);
+
+    printf("\n") ;
 
     return 0;
 }
