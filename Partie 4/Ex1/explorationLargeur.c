@@ -201,8 +201,16 @@ int main(int argc, char **argv)
 
   fin = clock();
 
+
+
   for(int i=0 ; i < G->nsom ; i++)
-      printf("> %d : %d\n", i, pred[i]) ;
+      printf("> Le sommet %d reçoit l'information via le sommet %d\n", i, pred[i]) ;
+
+  for(int i=0 ; i < G->nsom ; i++)
+    for(int j=0 ; j < G->nsom ; j++){
+      if(pred[j] == i) printf(">> Le sommet %d envoie l'information à %d.\n", pred[j], j) ;
+    }
+      
 
   /* On afffiche l'exploration et on compte le nombre de sommets explor�s */
   nZ = 0;
