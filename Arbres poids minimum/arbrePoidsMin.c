@@ -253,8 +253,6 @@ graphe * algoKruskal(graphePondere *Gp){
   int i=0, k=0;
 
   
-  Gp->poids[2] ;
-
   T = initGraphe(Gp->nsom, Gp->nsom-1);
 
   O = triAretes(Gp); /* O[i] est l'index de la i-�me ar�te par ordre croissant de poids; 
@@ -281,10 +279,8 @@ graphe * algoKruskal(graphePondere *Gp){
   */
   
   while(k < n-1){
-    x = Gp->I[O[i]] ;
-    y = Gp->T[O[i]] ;
+    x = Gp->I[O[i]] ; y = Gp->T[O[i]] ;
     Z = CC(T, x) ;
-
     if(Z[y] == FAUX){
       ajouteSuccesseur(T, x, y) ;
       poidsArbre += Gp->poids[O[i]] ;
@@ -300,6 +296,52 @@ graphe * algoKruskal(graphePondere *Gp){
   
 }
 
+/***************************************************************************/
+/* retourne l'exploration du graphe G depuis le sommet x                   */
+/* en utilisant l'algorithme exploration largeur (version 1)               */
+/***************************************************************************/
+booleen * arborescence(graphe* G, int x, int pred[]){
+  booleen *Z;       /* tableau booleens pour stocker l'exploration */
+  ListeFIFO *E, *D; /* Liste pour les ensembles de sommets */
+  ListeFIFO *tmp;   /* variable temporaire pour permettre l'echange des liste E et D */
+  pcell p; /* pointeur-maillon pour parcourir des listes de successeurs */
+  int y, z;         /* sommets du graphe */
+  int k;            /* num�ro d'iteration */
+  
+  /* initialisation de l'ensemble E : E := {x}*/
+  E = initListeFIFO(G->nsom);
+  insertionListeFIFO(E, x);
+  /* initialisation de l'ensemble Z : Z := {x}*/
+  Z = (booleen*) calloc(G->nsom, sizeof(booleen));
+  Z[x] = VRAI;
+  /* initialisation de l'ensemble D */
+  D = initListeFIFO(G->nsom);
+
+  /* Completer ici avec le code l'algorithme exploration largeur */
+  while(estNonVideListeFIFO(E)){
+
+      int y = selectionSuppressionListeFIFO(E) ;
+      
+      pcell p = G->gamma[y] ;
+      while(p != NULL){
+        if(Z[p->som] == FAUX){
+          insertionListeFIFO(E, p->som) ;
+          Z[p->som] = VRAI ; 
+          pred[p->som] = y ; 
+        }
+        p = p->suivant ;
+      }
+
+  }
+  
+  termineListeFIFO(D);
+  termineListeFIFO(E);
+  
+  return Z;
+}
+
+#define START_INDICE 7
+
 /* ====================================================================== */
 int main(int argc, char **argv)
 /* ====================================================================== */
@@ -308,6 +350,7 @@ int main(int argc, char **argv)
   graphe *T;
   int na, ns;     /* nombre d'arcs, nombre de sommets */
   clock_t debut, fin;
+  booleen *Z;   
   
   if (argc != 3)
   {
@@ -324,6 +367,24 @@ int main(int argc, char **argv)
   T = algoKruskal(Gp);       /* traitement : calcule le symetrique de g */
 
   fin = clock();
+
+  int pred[T->nsom] ;
+  //for(int indice = 0 ; indice < T->nsom ; indice++) pred[indice] = 0 ; 
+  pred[START_INDICE] = -1 ;
+
+  graphe* T_sym = fermetureSymEfficace(T) ;
+
+  Z = arborescence(T_sym, START_INDICE, pred);  
+
+  for(int i=0 ; i < T_sym->nsom ; i++)
+      printf("> Le sommet %d reçoit l'information via le sommet %d\n", i, pred[i]) ;
+
+  printf("\n------\n\n") ;
+
+  for(int i=0 ; i < T_sym->nsom ; i++)
+    for(int j=0 ; j < T_sym->nsom ; j++){
+      if(pred[j] == i) printf(">> Le sommet %d envoie l'information à %d.\n", pred[j], j) ;
+    }
 
   fprintf(stderr, "APmin calcule en %lf secondes\n", ((double)fin-debut)/CLOCKS_PER_SEC);
     
